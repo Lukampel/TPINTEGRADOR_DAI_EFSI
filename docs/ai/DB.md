@@ -1,5 +1,6 @@
+[DB.md](https://github.com/user-attachments/files/33874122/DB.md)
 # DB — Nexora (PostgreSQL)
-Estado: **diseño** → pasa a `backend/db/migrations/001_init.sql` (copiar tal cual). Migraciones: SQL numerado + tabla `schema_migrations`; runner `npm run migrate`. Seed: `npm run seed`.
+Estado: **migración 001 escrita**, falta correrla en Neon. Migraciones: SQL numerado + tabla `schema_migrations`; runner `npm run migrate`. Seed: `npm run seed`.
 
 ## Reglas del modelo
 - Contenido de RAWG se guarda como **snapshot compartido** en `games` (clave estable `rawg_id`); lo personal vive en `library_items` etc.
@@ -7,85 +8,17 @@ Estado: **diseño** → pasa a `backend/db/migrations/001_init.sql` (copiar tal 
 - Reseñas, colecciones y actividad son privadas del usuario (la consigna exige separación total).
 
 ## Esquema
-```sql
-CREATE TABLE users (
-  id            SERIAL PRIMARY KEY,
-  username      VARCHAR(30)  NOT NULL UNIQUE,
-  email         VARCHAR(255) NOT NULL UNIQUE,
-  password_hash TEXT         NOT NULL,
-  avatar_url    TEXT,
-  bio           VARCHAR(300) NOT NULL DEFAULT '',
-  preferences   JSONB        NOT NULL DEFAULT '{}',   -- {favoriteGenres:[], favoritePlatforms:[], theme:'dark'}
-  created_at    TIMESTAMPTZ  NOT NULL DEFAULT now()
-);
-
-CREATE TABLE games (
-  id         SERIAL PRIMARY KEY,
-  rawg_id    INTEGER NOT NULL UNIQUE,
-  title      TEXT    NOT NULL,
-  cover_url  TEXT,
-  released   DATE,
-  genres     TEXT[]  NOT NULL DEFAULT '{}',
-  platforms  TEXT[]  NOT NULL DEFAULT '{}',
-  metacritic SMALLINT
-);
-
-CREATE TABLE library_items (
-  id           SERIAL PRIMARY KEY,
-  user_id      INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  game_id      INTEGER NOT NULL REFERENCES games(id),
-  status       TEXT    NOT NULL DEFAULT 'want_to_play'
-               CHECK (status IN ('want_to_play','playing','completed','abandoned')),
-  is_favorite  BOOLEAN NOT NULL DEFAULT false,
-  rating       SMALLINT CHECK (rating BETWEEN 1 AND 10),
-  hours_played NUMERIC(6,1) NOT NULL DEFAULT 0 CHECK (hours_played >= 0),
-  platform     TEXT,                       -- plataforma en la que lo juega el usuario
-  finished_at  TIMESTAMPTZ,                -- se setea al pasar a 'completed'
-  added_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (user_id, game_id)
-);
-CREATE INDEX idx_library_user_status ON library_items (user_id, status);
-
-CREATE TABLE reviews (
-  id         SERIAL PRIMARY KEY,
-  user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  game_id    INTEGER NOT NULL REFERENCES games(id),
-  body       TEXT    NOT NULL CHECK (char_length(body) BETWEEN 1 AND 2000),
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (user_id, game_id)
-);
-
-CREATE TABLE collections (
-  id          SERIAL PRIMARY KEY,
-  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  name        VARCHAR(60)  NOT NULL,
-  description VARCHAR(300) NOT NULL DEFAULT '',
-  created_at  TIMESTAMPTZ  NOT NULL DEFAULT now(),
-  UNIQUE (user_id, name)
-);
-
-CREATE TABLE collection_items (
-  collection_id INTEGER NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
-  game_id       INTEGER NOT NULL REFERENCES games(id),
-  added_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-  PRIMARY KEY (collection_id, game_id)
-);
-
-CREATE TABLE activity (
-  id        BIGSERIAL PRIMARY KEY,
-  user_id   INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  type      TEXT NOT NULL CHECK (type IN (
-    'library_add','library_remove','status_change','favorite_add','favorite_remove',
-    'rating_set','review_save','review_delete','collection_create','collection_delete',
-    'collection_add','collection_remove','profile_update')),
-  game_id   INTEGER REFERENCES games(id) ON DELETE SET NULL,
-  meta      JSONB NOT NULL DEFAULT '{}',   -- {from:'playing',to:'completed'} / {collectionName:'…'} / {rating:9}
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-CREATE INDEX idx_activity_user_date ON activity (user_id, created_at DESC);
-```
+Fuente única: `backend/db/migrations/001_init.sql` (unifica el script de Lu y el diseño inicial; probado en Postgres 16). Tablas:
+| Tabla | Qué guarda |
+|---|---|
+| `users` | cuenta + perfil (`display_name`, `avatar_url`, `bio`) |
+| `user_preferences` | géneros/plataformas favoritas, una fila por valor (`kind` = `genre`\|`platform`) |
+| `games` | snapshot de RAWG (`rawg_id` único) |
+| `library_items` | 1 por (usuario, juego): `status`, `is_favorite`, `rating` 1–10, `hours_played`, `platform`, `finished_at` |
+| `reviews` | 1 por (usuario, juego) |
+| `collections` / `collection_items` | colecciones y sus juegos (N a N) |
+| `activity` | historial; `meta` JSONB con el detalle |
+Fechas en `TIMESTAMPTZ`. La migración no tiene `DROP TABLE` (no borra datos en producción). El tema claro/oscuro no va a la BD (es preferencia del navegador).
 `updated_at`: se actualiza desde el modelo (`SET updated_at = now()`). Cada acción que cambia datos escribe una fila en `activity` **en la misma transacción**.
 
 ## Estadísticas (R7) — 8 indicadores, `GET /api/stats`, todo calculado por SQL
