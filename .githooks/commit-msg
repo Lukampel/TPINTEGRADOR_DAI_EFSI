@@ -1,0 +1,9 @@
+#!/bin/sh
+# Rechaza commits con rastro de IA en el mensaje (regla #1, docs/ai/RULES.md).
+PATTERN='co-authored-by:.*(claude|anthropic|copilot|gpt|openai|gemini|bot)|generated with|claude|anthropic|chatgpt|copilot|openai|gemini|🤖'
+if grep -qiE "$PATTERN" "$1"; then
+  echo "COMMIT RECHAZADO: el mensaje tiene rastro de IA (Claude/Anthropic/Co-Authored-By/etc.)." >&2
+  echo "Escribí el mensaje en tus palabras y sin esas referencias. Ver docs/ai/RULES.md." >&2
+  exit 1
+fi
+exit 0

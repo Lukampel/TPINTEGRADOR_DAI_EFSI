@@ -1,0 +1,14 @@
+#!/bin/sh
+# Rechaza el push si algun commit nuevo tiene rastro de IA en mensaje, autor o committer.
+PATTERN='co-authored-by:.*(claude|anthropic|copilot|gpt|openai|gemini|bot)|generated with|claude|anthropic|chatgpt|copilot|openai|gemini|🤖'
+ZERO=0000000000000000000000000000000000000000
+while read local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$ZERO" ] && continue
+  if [ "$remote_sha" = "$ZERO" ]; then range="$local_sha"; else range="$remote_sha..$local_sha"; fi
+  if git log --format='%an %ae %cn %ce%n%B' $range | grep -qiE "$PATTERN"; then
+    echo "PUSH RECHAZADO: hay commits con rastro de IA (mensaje, autor o committer)." >&2
+    echo "Corregilos antes de pushear (amend / rebase a mano). Ver docs/ai/RULES.md." >&2
+    exit 1
+  fi
+done
+exit 0
