@@ -1,0 +1,37 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius);
+  background: var(--nx-surface);
+  color: var(--nx-text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.card:hover {
+  border-color: var(--nx-primary);
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--nx-surface-2);
+}
+
+.info {
+  padding: var(--nx-space-2) var(--nx-space-3) var(--nx-space-3);
+}
+
+.title {
+  margin: 0 0 var(--nx-space-1);
+  font-size: 1rem;
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--nx-text-muted);
+}
