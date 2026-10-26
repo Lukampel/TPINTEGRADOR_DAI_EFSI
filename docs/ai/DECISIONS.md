@@ -1,4 +1,3 @@
-[DECISIONS.md](https://github.com/user-attachments/files/33874171/DECISIONS.md)
 # DECISIONS — Nexora
 Una línea por decisión. "Conf." = quién la confirmó. Cambiar una decisión: nueva fila, marcar la vieja como reemplazada.
 
