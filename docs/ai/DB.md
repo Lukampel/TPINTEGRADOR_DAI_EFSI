@@ -1,4 +1,3 @@
-[DB.md](https://github.com/user-attachments/files/33874122/DB.md)
 # DB — Nexora (PostgreSQL)
 Estado: **migración 001 escrita**, falta correrla en Neon. Migraciones: SQL numerado + tabla `schema_migrations`; runner `npm run migrate`. Seed: `npm run seed`.
 
