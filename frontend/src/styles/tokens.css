@@ -1,0 +1,27 @@
+/* Tokens de diseño de Nexora (tema oscuro). Valores sacados de Figma, ver docs/ai/DESIGN.md.
+   Ningún componente usa colores sueltos: siempre var(--nx-...). */
+:root {
+  --nx-bg: #0D0F14;
+  --nx-surface: #1B1C29;
+  --nx-surface-2: #25263A;
+  --nx-border: rgba(75, 79, 102, 0.4);
+
+  --nx-text: #EDEBFF;
+  --nx-text-muted: #9B9BB5;
+  --nx-text-disabled: #4B4F66;
+
+  --nx-primary: #8B5CF6;
+  --nx-primary-soft: #A78BFA;
+  --nx-info: #3B82F6;
+  --nx-success: #22C55E;
+  --nx-warning: #F59E0B;
+  --nx-danger: #EF4444;
+
+  --nx-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --nx-radius: 8px;
+  --nx-space-1: 4px;
+  --nx-space-2: 8px;
+  --nx-space-3: 16px;
+  --nx-space-4: 24px;
+  --nx-space-5: 40px;
+}

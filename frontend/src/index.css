@@ -1,0 +1,19 @@
+@import './styles/tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--nx-bg);
+  color: var(--nx-text);
+  font-family: var(--nx-font);
+}
+
+a {
+  color: var(--nx-primary-soft);
+}

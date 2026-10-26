@@ -1,0 +1,55 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nx-space-3);
+  padding: var(--nx-space-3) var(--nx-space-4);
+  background: var(--nx-surface);
+  border-bottom: 1px solid var(--nx-border);
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--nx-primary);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nx-space-2);
+}
+
+.link {
+  padding: var(--nx-space-1) var(--nx-space-2);
+  border-radius: var(--nx-radius);
+  color: var(--nx-text-muted);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--nx-text);
+}
+
+.active {
+  color: var(--nx-text);
+  background: var(--nx-surface-2);
+}
+
+.main {
+  flex: 1;
+  padding: var(--nx-space-4);
+}
+
+.footer {
+  padding: var(--nx-space-3);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--nx-text-muted);
+}
