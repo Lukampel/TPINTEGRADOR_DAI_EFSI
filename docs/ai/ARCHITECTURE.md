@@ -1,5 +1,5 @@
 # ARCHITECTURE — Nexora
-Estado: **diseño** (código aún no existe). Si el código difiere, actualizar este archivo.
+Estado: **scaffold del back hecho** (T05: `src/app.js` + `server.js`, `config/env.js`, `db/pool.js` con `query`/`withTransaction`, `middleware/errorHandler.js`, `utils/AppError.js`, `/api/health`). Express 5: los errores de funciones async llegan solos al handler. Si el código difiere, actualizar este archivo.
 
 ## Mapa
 ```
