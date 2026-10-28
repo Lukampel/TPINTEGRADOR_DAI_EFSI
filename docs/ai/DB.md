@@ -1,5 +1,5 @@
 # DB — Nexora (PostgreSQL)
-Estado: **migración 001 escrita**, falta correrla en Neon. Migraciones: SQL numerado + tabla `schema_migrations`; runner `npm run migrate`. Seed: `npm run seed`.
+Estado: **migración 001 escrita y runner hecho** (`backend/db/migrate.js`), **aplicada en Neon** (28/10, proyecto de Rami; 9 tablas incluida `schema_migrations`). Migraciones: SQL numerado `NNN_*.sql`; el runner aplica en orden solo las que no están en `schema_migrations`, cada una en su transacción (idempotente). Seed: `npm run seed` (TODO, T22).
 
 ## Reglas del modelo
 - Contenido de RAWG se guarda como **snapshot compartido** en `games` (clave estable `rawg_id`); lo personal vive en `library_items` etc.

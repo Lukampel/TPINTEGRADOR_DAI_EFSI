@@ -51,4 +51,4 @@ Una rama por persona: `feature/nombre-apellido`. PR a `main` con descripción br
 Explicá como profesor a alumnos de 5.º año: simple, analogías, paso a paso, definí cada término técnico la primera vez. Una recomendación clara + el porqué, no un menú de opciones. Preguntá lo mínimo necesario y después ejecutá.
 
 ## Comandos (se completan al crear el código)
-Back: `npm run dev` · `npm run migrate` · `npm run seed`. Front: `npm run dev` · `npm run build`.
+Back (en `/backend`, requiere `.env`): `npm run dev` (node --watch, puerto 4000) · `npm start` · `npm run migrate` · `npm run seed` (TODO). Front: `npm run dev` · `npm run build`.

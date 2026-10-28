@@ -50,7 +50,7 @@ Reglas: `status ∈ want_to_play|playing|completed|abandoned`; `rating` entero 1
 |---|---|---|---|
 | GET `/home/summary` | 🔒 | — | `{favorites[], recentActivity[], progress:{completed,total,percent}, collections[]}` |
 | GET `/stats` | 🔒 | — | los 8 indicadores de `DB.md` |
-| GET `/health` | no | — | `{status:"ok"}` (Render/monitoreo) |
+| GET `/health` | no | — | 200 `{status:"ok", db:"ok"}` · 503 `{status:"error", db:"unreachable"}` (Render/monitoreo) ✅ implementado |
 
 ## Notas de validación
 Zod en `validators/`. `email` normalizado a minúsculas. Contraseña: bcrypt (cost 10–12). 404 también cuando el recurso existe pero es de otro usuario (no filtrar existencia).

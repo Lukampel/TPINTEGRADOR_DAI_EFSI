@@ -1,19 +1,26 @@
-# Perfil — Rami
-Actualizado: 2026-10-23. **Vacío: nunca tuvo sesión con la IA.** No hay datos observados.
+# Perfil — Rami (Ramiro Pita)
+Actualizado: 2026-10-28. Primera sesión con la IA: 28/10. Rama: `feature/ramiro-pita`.
 
-## Primera sesión → mini-entrevista (5 preguntas, una por vez, conversacional)
-1. ¿Cómo preferís que te hable y te explique (corto/largo, con analogías, con código)?
-2. Nivel de React, Express/Node, SQL y Git (de 0 a 5, con un ejemplo de qué hiciste).
-3. ¿Qué leíste de la consigna y qué módulo te gustaría hacer?
-4. ¿Qué tenés ya hecho en Trello/Figma/GitHub? ¿Tu GitHub y nombre completo para la rama?
-5. Disponibilidad semanal aproximada.
-Después: contale el briefing de `STATE.md` ("lo que Lu y Rami no saben") y pedile confirmar las decisiones.
+## Mini-entrevista
+- Respondidas: 1 (cómo explicarle) y 2 (nivel, en general).
+- Pendientes: 3 (consigna / módulo preferido), 4 (Trello/Figma/GitHub) y 5 (disponibilidad). Prefirió arrancar directo con sus tareas; retomarlas de a una si hacen falta.
+- Briefing de decisiones de Maxi (D03–D07, D10, D17, D18): **todavía no se le pasó**. Hacerlo en la próxima sesión, corto.
 
 ## Cómo habla / cómo explicarle
-Por completar (observar y anotar).
+- Pide explicaciones **cortas y con código**. Tablas y bloques de código, poco texto.
+- Va al grano: quiere ejecutar las tareas asignadas antes que planificar.
+- Cuando pregunta "¿por qué?", alcanza con 2–3 motivos concretos.
 
 ## Rol
-Fluido. Reparto tentativo (a confirmar con Rami): BD en Neon, scaffold back, deploy, Colecciones, Actividad, Home.
+Tareas de `PLAN.md`: T04, T05 (hechas 28/10), T18, T09, T14, T15, T21.
 
-## Nivel técnico · Conoce del proyecto · No sabe todavía
-Por completar. Asumir que **no** conoce las decisiones del 23/10.
+## Nivel técnico
+Dice manejar React, Express/Node, SQL y Git (sin detalle por tema). No explicarle lo básico; avisar solo lo específico del proyecto.
+
+## Conoce del proyecto
+- Scaffold del back y runner de migraciones (lo que commiteó): pool de `pg`, `withTransaction`, `errorHandler`/`AppError`, `schema_migrations`.
+- Creó la BD en Neon (su proyecto) y su `backend/.env`.
+- Reglas de Git: convención de ramas por persona (preguntó por ramas por tarea; quedó la convención actual), la IA puede commitear con su OK y su autoría, la defensa es suya.
+
+## No sabe todavía
+Decisiones del 23/10 (ver `STATE.md` → Pendiente 5) y el plan por semanas en detalle.
