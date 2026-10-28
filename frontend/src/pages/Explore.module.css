@@ -1,0 +1,32 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nx-space-2);
+  margin-bottom: var(--nx-space-4);
+}
+
+.search,
+.select {
+  padding: var(--nx-space-2) var(--nx-space-3);
+  border: 1px solid var(--nx-border);
+  border-radius: var(--nx-radius);
+  background: var(--nx-surface);
+  color: var(--nx-text);
+  font: inherit;
+}
+
+.search {
+  flex: 1 1 240px;
+}
+
+.search:focus,
+.select:focus {
+  outline: 2px solid var(--nx-primary);
+  outline-offset: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--nx-space-3);
+}

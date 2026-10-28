@@ -1,0 +1,19 @@
+.message {
+  padding: var(--nx-space-5) var(--nx-space-3);
+  text-align: center;
+  color: var(--nx-text-muted);
+}
+
+.error {
+  color: var(--nx-danger);
+}
+
+.button {
+  margin-top: var(--nx-space-2);
+  padding: var(--nx-space-2) var(--nx-space-3);
+  border: none;
+  border-radius: var(--nx-radius);
+  background: var(--nx-primary);
+  color: var(--nx-text);
+  cursor: pointer;
+}
